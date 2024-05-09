@@ -1,25 +1,26 @@
---Ассортимент товаров заказанные контрагентом:
+--Выдавать ассортимент товара, находящегося на складе:
 select 
-    "Product_ID" as "Product_ID"
-    ,"Article" as "Product_Article"
-    ,"Name" as "Product_Name"
+     p."ID" as "Product_ID"
+    ,p."Article" as "Product_Article"
+    ,p."Name"  as "Product_Name"
+    ,p."Cell_ID" as "Product_Cell"
 from 
-    "Products"
+    "Products" p 
 join 
-    "Orders" on "Orders"."Product_ID" = "Products"."ID"
+    "Cells" c  on "c"."ID"  = p."Cell_ID"
 where 
-    "Orders"."Counterparty_ID" = 302;
+     c."Warehouse_ID"  = 201;
 
-   --Ассортимент товаров на складе:
+   --Показывать список клиентов, имеющих скидку:
 select 
-     c."ID"  as "Product_ID"
-    ,c."Cell_number"  as "Cell_number"
-    ,c."Warehouse_ID"  as "Warehouse_ID"  
-    ,w."Name" as "Warehouse_Name"
-    ,w."Address" as "Address"
-from 
-    "Cells" c 
+	 d."ID" as "Discount_ID"
+	,d."Counterparty_ID" as "Counterparty_ID"
+	,d."DateStart" as "DateStart"
+	,d."DateEnd" as "DateEnd"
+	,d."Discount_amount" as "Discount_amount"
+from "Discounts" d 
 join 
-    "Warehouses" w on c."Warehouse_ID" = w."ID"
+    "Counterparties" c on d."Counterparty_ID" = c."ID"
 where 
-    c."Warehouse_ID" = 203;
+    d."Discount_amount" > 0;
+
