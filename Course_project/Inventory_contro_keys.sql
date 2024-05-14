@@ -28,3 +28,17 @@ alter table "Documents"
 add constraint "FK_Documents_Order"
 foreign key ("Order_ID")
 references "Orders" ("ID");
+
+--Добавление ограничений к таблице "Скидки"
+alter table "Discounts"
+add constraint "(DateEnd>DateStart)"
+check ("DateEnd">"DateStart");
+
+alter table "Discounts"
+add constraint "(Discount_amount_not_null)"
+check ("Discount_amount" >= 0);
+
+--Добавление ограничений к таблице "Документы"
+alter table "Documents"
+add constraint "(Quantity_not_null)"
+check ("Quantity" > 0);
