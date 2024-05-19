@@ -7,7 +7,7 @@ select
 from 
     "Production"."Product" p 
 where 
-    p."ListPrice" < any
+    p."ListPrice" <
    		(
     	select avg ("ListPrice") as "AvgListPrice"
     	from "Production"."Product" p2 
